@@ -98,7 +98,7 @@ bot.on('text', async (ctx) => {
                 } else {
 
                     try {
-                        const response = await axios.get(`https://coinzy-u0g3.onrender.com/fetch?id=${id}`);
+                        const response = await axios.get(`https://coinzy-u0g3.onrender.com/fetch?id=${id}&region=MA`);
                         const data = response.data;
 
                         const normalData = data.normal;
