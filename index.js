@@ -17,11 +17,8 @@ const aliExpressLib = new AliExpressLibrary(appkey, secertkey, tarckin_id);
 const aliExpressLibCart = new AliExpressLibraryCart(appkey, secertkey, tarckin_id);
 app.use(express.json());
 app.use(bot.webhookCallback('/bot'))
-
 app.get('/', (req, res) => { res.sendStatus(200) });
-
 app.get('/ping', (req, res) => { res.status(200).json({ message: 'Ping successful' }); });
-
 function keepAppRunning() {
     setInterval(() => {
         https.get(`${process.env.RENDER_EXTERNAL_URL}/ping`, (resp) => {
