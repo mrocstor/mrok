@@ -227,7 +227,7 @@ bot.on('text', async (ctx) => {
                                             }
 
 
-                                            ctx.replyWithPhoto({ url: coinPi.info.normal.image },
+                                            ctx.replyWithPhoto({ url: coinPi.normal.image },
                                                 {
 
 
