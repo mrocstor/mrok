@@ -181,41 +181,13 @@ bot.on('text', async (ctx) => {
                                     aliExpressLib.getData(response_link)
                                         .then((coinPi) => {
                                             console.log("coinPi : ", coinPi)
-                                            let couponList = "";
-
-                                            if (coinPi.info.normal.coupon === "لا يوجد كوبونات ❎") {
-                                                couponList = coinPi.info.normal.coupon;
-                                            } else {
-                                                couponList = "";
-                                                coinPi.info.normal.coupon.forEach(coupons => {
-                                                    const code = coupons.code;
-                                                    const detail = coupons.detail.replace('طلبات تزيد على US ', '');
-                                                    const desc = coupons.desc.replace('US ', '');
-                                                    couponList += `🎁${desc}/${detail} :${code}\n`;
-                                                });
-                                            }
+                                          
                                             ctx.replyWithPhoto({ url: coinPi.info.normal.image },
                                                 {
 
 
                                                     caption: `
-<b>>-----------« تخفيض الاسعار 🎉 »>-----------</b>
-${coinPi.info.normal.name}
 
-السعر الاصلي : (${coinPi.info.points.discountPrice})
-
-التقييم : ${coinPi.info.normal.rate}
-التقييمات : ${coinPi.info.normal.totalRates}
-<b>----------- | ✨ المتجر ✨ | -----------</b>
-
-✈️ الشحن : ${coinPi.info.normal.shipping}
-🛒 إسم المتجر : ${coinPi.info.normal.store}
-📊 معدل تقييم المتجر : ${coinPi.info.normal.storeRate}
-<b>----------- | ✨ التخفيضات ✨ | -----------</b>
-
-عدد المبيعات : ${coinPi.info.normal.sales}
-🏷 نسبة تخفيض بالعملات قبل  :  (${coinPi.info.normal.discount})
-🏷 نسبة تخفيض بعد  : (${coinPi.info.points.discount})
 
 🌟رابط تخفيض النقاط: ${coinPi.info.points.total}
 ${coinPi.aff.points}
@@ -225,8 +197,7 @@ ${coinPi.aff.super}
 
 📌رابط العرض المحدود: ${coinPi.info.limited.price}
 ${coinPi.aff.limited}
-<b>----------- | ✨ الكوبونات ✨ | -----------</b>
-${couponList}
+
 ` ,
                                                     parse_mode: "HTML",
                                                     ...Markup.inlineKeyboard([
