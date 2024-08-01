@@ -205,18 +205,18 @@ bot.on('text', async (ctx) => {
                                             //     });
                                             // }
                                             let total;
-                                            if (coinPi.info.points.discount != 'لا توجد نسبة تخفيض بالعملات ❎') {
-                                                var dise = coinPi.info.points.discount.replace("خصم النقاط ", "");
+                                            if (coinPi.points.discount != 'لا توجد نسبة تخفيض بالعملات ❎') {
+                                                var dise = coinPi.points.discount.replace("خصم النقاط ", "");
                                                 var ods = parseFloat(dise.replace("%", ""));
-                                                var prices = (parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) / 100) * ods;
-                                                total = parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) - prices;
-                                                if (coinPi.info.normal.shipping != "Free Shipping") {
-                                                    total = total + parseFloat(coinPi.info.normal.shipping);
+                                                var prices = (parseFloat(coinPi.points.discountPrice.replace("US $", "")) / 100) * ods;
+                                                total = parseFloat(coinPi.points.discountPrice.replace("US $", "")) - prices;
+                                                if (coinPi.normal.shipping != "Free Shipping") {
+                                                    total = total + parseFloat(coinPi.normal.shipping);
                                                 }
                                             } else {
-                                                total = parseFloat(coinPi.info.points.discountPrice.replace("US $", ""));
-                                                if (coinPi.info.normal.shipping != "Free Shipping") {
-                                                    total = total + parseFloat(coinPi.info.normal.shipping);
+                                                total = parseFloat(coinPi.points.discountPrice.replace("US $", ""));
+                                                if (coinPi.normal.shipping != "Free Shipping") {
+                                                    total = total + parseFloat(coinPi.normal.shipping);
                                                 }
                                             }
 
@@ -236,10 +236,10 @@ bot.on('text', async (ctx) => {
 🌟رابط تخفيض النقاط:US $${total}
 ${coinPi.aff.points}
 
-🔥 رابط تخفيض السوبر: ${coinPi.info.super.price}
+🔥 رابط تخفيض السوبر: ${coinPi.super.price}
 ${coinPi.aff.super}
 
-📌رابط العرض المحدود: ${coinPi.info.limited.price}
+📌رابط العرض المحدود: ${coinPi.limited.price}
 ${coinPi.aff.limited}
 
 ` ,
