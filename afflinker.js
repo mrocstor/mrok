@@ -59,7 +59,7 @@ class AliExpressLibrary {
         try {
             const responses = await Promise.all([
                 axios.post(this.API_URL, new URLSearchParams(allParams)),
-                axios.get(`https://afillbot.com/info?id=${id}&lang=en_MA&region=MA`)
+                axios.get(`https://afillbot.com/info?id=${id}&lang=en_MA&region=MAt`)
             ]);
             const affRes = {};
             responses.forEach((response, index) => {
