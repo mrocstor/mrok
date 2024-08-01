@@ -76,9 +76,10 @@ class AliExpressLibrary {
                                 } else if (sourceValue.includes('sourceType=620')) {
                                     key = 'points';
                                 }
-                                     } else if (sourceValue.includes('sourceType=570')) {
+                                else if (sourceValue.includes('sourceType=570')) {
                                     key = 'choice';
                                 }
+
                             }
                             result[key] = item.promotion_link;
                             return result;
