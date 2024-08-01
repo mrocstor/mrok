@@ -18,7 +18,9 @@ const aliExpressLibCart = new AliExpressLibraryCart(appkey, secertkey, tarckin_i
 app.use(express.json());
 app.use(bot.webhookCallback('/bot'))
 app.get('/', (req, res) => { res.sendStatus(200) });
+
 app.get('/ping', (req, res) => { res.status(200).json({ message: 'Ping successful' }); });
+
 function keepAppRunning() {
     setInterval(() => {
         https.get(`${process.env.RENDER_EXTERNAL_URL}/ping`, (resp) => {
@@ -176,20 +178,62 @@ bot.on('text', async (ctx) => {
                             }
 
                             else {
-                                idCatcher(links[0]).then(response_link => {
+                                let url_link;
+                                if (links[0].includes("https")) {
+                                    url_link = links[0]
+                                } else {
+
+                                    var url_parts = links[0].split("http");
+                                    url_link = "https" + url_parts[1];
+                                }
+                                idCatcher(url_link).then(response_link => {
 
                                     aliExpressLib.getData(response_link)
                                         .then((coinPi) => {
                                             console.log("coinPi : ", coinPi)
-                                          
+                                            // let couponList = "";
+
+                                            // if (coinPi.info.normal.coupon == "لا يوجد كوبونات ❎") {
+                                            //     couponList = coinPi.info.normal.coupon;
+                                            // } else {
+                                            //     couponList = "";
+                                            //     coinPi.info.normal.coupon.forEach(coupons => {
+                                            //         const code = coupons.code;
+                                            //         const detail = coupons.detail.replace('طلبات تزيد على US ', '');
+                                            //         const desc = coupons.desc.replace('US ', '');
+                                            //         couponList += `🎁${desc}/${detail} :${code}\n`;
+                                            //     });
+                                            // }
+                                            let total;
+                                            if (coinPi.info.points.discount != 'لا توجد نسبة تخفيض بالعملات ❎') {
+                                                var dise = coinPi.info.points.discount.replace("خصم النقاط ", "");
+                                                var ods = parseFloat(dise.replace("%", ""));
+                                                var prices = (parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) / 100) * ods;
+                                                total = parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) - prices;
+                                                if (coinPi.info.normal.shipping != "Free Shipping") {
+                                                    total = total + parseFloat(coinPi.info.normal.shipping);
+                                                }
+                                            } else {
+                                                total = parseFloat(coinPi.info.points.discountPrice.replace("US $", ""));
+                                                if (coinPi.info.normal.shipping != "Free Shipping") {
+                                                    total = total + parseFloat(coinPi.info.normal.shipping);
+                                                }
+                                            }
+
+                                            try {
+                                                total = total.toFixed(2);
+                                            } catch (e) {
+                                                total = total;
+                                            }
+
+
                                             ctx.replyWithPhoto({ url: coinPi.info.normal.image },
                                                 {
 
 
                                                     caption: `
 
-
-🌟رابط تخفيض النقاط: ${coinPi.info.points.total}
+🌟رابط تخفيض النقاط:US $${total}
 ${coinPi.aff.points}
 
 🔥 رابط تخفيض السوبر: ${coinPi.info.super.price}
