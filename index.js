@@ -232,24 +232,6 @@ try {
 
 
                                                     caption: `
-<b>>-----------« تخفيض الاسعار 🎉 »>-----------</b>
-${coinPi.info.normal.name}
-
-السعر الاصلي : (${coinPi.info.points.discountPrice})
-
-التقييم : ${coinPi.info.normal.rate}
-التقييمات : ${coinPi.info.normal.totalRates}
-<b>----------- | ✨ المتجر ✨ | -----------</b>
-
-✈️ الشحن : ${coinPi.info.normal.shipping}
-🛒 إسم المتجر : ${coinPi.info.normal.store}
-📊 معدل تقييم المتجر : ${coinPi.info.normal.storeRate}
-<b>----------- | ✨ التخفيضات ✨ | -----------</b>
-
-عدد المبيعات : ${coinPi.info.normal.sales}
-🏷 نسبة تخفيض بالعملات قبل  :  (${coinPi.info.normal.discount})
-🏷 نسبة تخفيض بعد  : (${coinPi.info.points.discount})
-
 🌟رابط تخفيض النقاط:US $${total}
 ${coinPi.aff.points}
 
@@ -259,9 +241,7 @@ ${coinPi.aff.super}
 📌رابط العرض المحدود: ${coinPi.info.limited.price}
 ${coinPi.aff.limited}
 
-🌐رابط الـ  big save : ${coinPi.info.bigsave.price}
-${coinPi.aff.bigsave}
-<b>----------- | ✨ الكوبونات ✨ | -----------</b>
+
 ` ,
                                                     parse_mode: "HTML",
                                                     ...Markup.inlineKeyboard([
