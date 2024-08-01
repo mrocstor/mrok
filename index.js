@@ -178,15 +178,15 @@ bot.on('text', async (ctx) => {
                             }
 
                             else {
-                                let url_link;
-                                if (links[0].includes("https")) {
-                                    url_link = links[0]
-                                } else {
-
-                                    var url_parts = links[0].split("http");
-                                    url_link = "https" + url_parts[1];
-                                }
-                                idCatcher(url_link).then(response_link => {
+                            let url_link;
+                            if (links[0].includes("https")) {
+                             url_link = links[0]
+                            } else {
+                               
+                                var url_parts = links[0].split("http");
+                                url_link = "https" + url_parts[1];
+                            }
+                            idCatcher(url_link).then(response_link => {
 
                                     aliExpressLib.getData(response_link)
                                         .then((coinPi) => {
@@ -204,44 +204,64 @@ bot.on('text', async (ctx) => {
                                             //         couponList += `🎁${desc}/${detail} :${code}\n`;
                                             //     });
                                             // }
-                                            let total;
-                                            if (coinPi.points.discount != 'لا توجد نسبة تخفيض بالعملات ❎') {
-                                                var dise = coinPi.points.discount.replace("خصم النقاط ", "");
-                                                var ods = parseFloat(dise.replace("%", ""));
-                                                var prices = (parseFloat(coinPi.points.discountPrice.replace("US $", "")) / 100) * ods;
-                                                total = parseFloat(coinPi.points.discountPrice.replace("US $", "")) - prices;
-                                                if (coinPi.normal.shipping != "Free Shipping") {
-                                                    total = total + parseFloat(coinPi.normal.shipping);
-                                                }
-                                            } else {
-                                                total = parseFloat(coinPi.points.discountPrice.replace("US $", ""));
-                                                if (coinPi.normal.shipping != "Free Shipping") {
-                                                    total = total + parseFloat(coinPi.normal.shipping);
-                                                }
-                                            }
+                                         let total;
+if (coinPi.info.points.discount != 'لا توجد نسبة تخفيض بالعملات ❎') {
+    var dise = coinPi.info.points.discount.replace("خصم النقاط ", "");
+    var ods = parseFloat(dise.replace("%", ""));
+    var prices = (parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) / 100) * ods;
+    total = parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) - prices;
+    if (coinPi.info.normal.shipping != "Free Shipping") {
+        total = total + parseFloat(coinPi.info.normal.shipping);
+    }
+} else {
+    total = parseFloat(coinPi.info.points.discountPrice.replace("US $", ""));
+    if (coinPi.info.normal.shipping != "Free Shipping") {
+        total = total + parseFloat(coinPi.info.normal.shipping);
+    }
+}
 
-                                            try {
-                                                total = total.toFixed(2);
-                                            } catch (e) {
-                                                total = total;
-                                            }
+try {
+    total = total.toFixed(2);
+} catch (e) {
+    total = total;
+}
 
-
-                                            ctx.replyWithPhoto({ url: coinPi.normal.image },
+                                   
+                                            ctx.replyWithPhoto({ url: coinPi.info.normal.image },
                                                 {
 
 
                                                     caption: `
+<b>>-----------« تخفيض الاسعار 🎉 »>-----------</b>
+${coinPi.info.normal.name}
+
+السعر الاصلي : (${coinPi.info.points.discountPrice})
+
+التقييم : ${coinPi.info.normal.rate}
+التقييمات : ${coinPi.info.normal.totalRates}
+<b>----------- | ✨ المتجر ✨ | -----------</b>
+
+✈️ الشحن : ${coinPi.info.normal.shipping}
+🛒 إسم المتجر : ${coinPi.info.normal.store}
+📊 معدل تقييم المتجر : ${coinPi.info.normal.storeRate}
+<b>----------- | ✨ التخفيضات ✨ | -----------</b>
+
+عدد المبيعات : ${coinPi.info.normal.sales}
+🏷 نسبة تخفيض بالعملات قبل  :  (${coinPi.info.normal.discount})
+🏷 نسبة تخفيض بعد  : (${coinPi.info.points.discount})
 
 🌟رابط تخفيض النقاط:US $${total}
 ${coinPi.aff.points}
 
-🔥 رابط تخفيض السوبر: ${coinPi.super.price}
+🔥 رابط تخفيض السوبر: ${coinPi.info.super.price}
 ${coinPi.aff.super}
 
-📌رابط العرض المحدود: ${coinPi.limited.price}
+📌رابط العرض المحدود: ${coinPi.info.limited.price}
 ${coinPi.aff.limited}
 
+🌐رابط الـ  big save : ${coinPi.info.bigsave.price}
+${coinPi.aff.bigsave}
+<b>----------- | ✨ الكوبونات ✨ | -----------</b>
 ` ,
                                                     parse_mode: "HTML",
                                                     ...Markup.inlineKeyboard([
