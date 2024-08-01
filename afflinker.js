@@ -49,7 +49,7 @@ class AliExpressLibrary {
             method: "aliexpress.affiliate.link.generate",
             promotion_link_type: 0,
             tracking_id: this.Tracking_ID,
-            source_values: `https://ar.aliexpress.com/i/${id}.html,https://ar.aliexpress.com/i/${id}.html?sourceType=620&channel=coin&aff_fcid=,https://ar.aliexpress.com/i/${id}.html?sourceType=562&aff_fcid=,https://ar.aliexpress.com/i/${id}.html?sourceType=561&aff_fcid=`,
+            source_values: `https://ar.aliexpress.com/i/${id}.html,https://ar.aliexpress.com/i/${id}.html?sourceType=620&channel=coin&aff_fcid=,https://ar.aliexpress.com/i/${id}.html?sourceType=562&aff_fcid=,https://ar.aliexpress.com/i/${id}.html?sourceType=561&aff_fcid=,https://ar.aliexpress.com/i/${id}.html?sourceType=570&aff_fcid=`,
         };
         const sign = this.signRequest(payload);
         const allParams = {
@@ -59,7 +59,7 @@ class AliExpressLibrary {
         try {
             const responses = await Promise.all([
                 axios.post(this.API_URL, new URLSearchParams(allParams)),
-                axios.get(`https://afillbot.com/info?id=${id}&lang=en_DZ&region=MA`)
+                axios.get(`https://afillbot.com/info?id=${id}&lang=en_MA&region=MA`)
             ]);
             const affRes = {};
             responses.forEach((response, index) => {
@@ -75,6 +75,9 @@ class AliExpressLibrary {
                                     key = 'super';
                                 } else if (sourceValue.includes('sourceType=620')) {
                                     key = 'points';
+                                }
+                                     } else if (sourceValue.includes('sourceType=570')) {
+                                    key = 'choice';
                                 }
                             }
                             result[key] = item.promotion_link;
