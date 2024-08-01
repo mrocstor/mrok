@@ -239,7 +239,7 @@ ${coinPi.aff.points}
 ${coinPi.aff.super}
 
 🟡 رابط عرض تشويس 3 : ${coinPi.info.choice.price}
-${coinPi.aff.choice}
+${coinPi.aff.Choice}
 
 📌رابط العرض المحدود: ${coinPi.info.limited.price}
 ${coinPi.aff.limited}
