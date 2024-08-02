@@ -238,7 +238,7 @@ ${coinPi.aff.points}
 🔥 رابط تخفيض السوبر: ${coinPi.info.super.price}
 ${coinPi.aff.super}
 
-🟡 رابط عرض تشويس 3 : ${coinPi.info.Choice.price}
+🟡 رابط عرض تشويس 3 : ${coinPi.info.choice.price}
 ${coinPi.aff.choice}
 
 📌رابط العرض المحدود: ${coinPi.info.limited.price}
