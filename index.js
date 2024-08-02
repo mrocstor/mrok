@@ -178,15 +178,15 @@ bot.on('text', async (ctx) => {
                             }
 
                             else {
-                            let url_link;
-                            if (links[0].includes("https")) {
-                             url_link = links[0]
-                            } else {
-                               
-                                var url_parts = links[0].split("http");
-                                url_link = "https" + url_parts[1];
-                            }
-                            idCatcher(url_link).then(response_link => {
+                                let url_link;
+                                if (links[0].includes("https")) {
+                                    url_link = links[0]
+                                } else {
+
+                                    var url_parts = links[0].split("http");
+                                    url_link = "https" + url_parts[1];
+                                }
+                                idCatcher(url_link).then(response_link => {
 
                                     aliExpressLib.getData(response_link)
                                         .then((coinPi) => {
@@ -204,29 +204,29 @@ bot.on('text', async (ctx) => {
                                             //         couponList += `🎁${desc}/${detail} :${code}\n`;
                                             //     });
                                             // }
-                                         let total;
-if (coinPi.info.points.discount != 'لا توجد نسبة تخفيض بالعملات ❎') {
-    var dise = coinPi.info.points.discount.replace("خصم النقاط ", "");
-    var ods = parseFloat(dise.replace("%", ""));
-    var prices = (parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) / 100) * ods;
-    total = parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) - prices;
-    if (coinPi.info.normal.shipping != "Free Shipping") {
-        total = total + parseFloat(coinPi.info.normal.shipping);
-    }
-} else {
-    total = parseFloat(coinPi.info.points.discountPrice.replace("US $", ""));
-    if (coinPi.info.normal.shipping != "Free Shipping") {
-        total = total + parseFloat(coinPi.info.normal.shipping);
-    }
-}
+                                            let total;
+                                            if (coinPi.info.points.discount != 'لا توجد نسبة تخفيض بالعملات ❎') {
+                                                var dise = coinPi.info.points.discount.replace("خصم النقاط ", "");
+                                                var ods = parseFloat(dise.replace("%", ""));
+                                                var prices = (parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) / 100) * ods;
+                                                total = parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) - prices;
+                                                if (coinPi.info.normal.shipping != "Free Shipping") {
+                                                    total = total + parseFloat(coinPi.info.normal.shipping);
+                                                }
+                                            } else {
+                                                total = parseFloat(coinPi.info.points.discountPrice.replace("US $", ""));
+                                                if (coinPi.info.normal.shipping != "Free Shipping") {
+                                                    total = total + parseFloat(coinPi.info.normal.shipping);
+                                                }
+                                            }
 
-try {
-    total = total.toFixed(2);
-} catch (e) {
-    total = total;
-}
+                                            try {
+                                                total = total.toFixed(2);
+                                            } catch (e) {
+                                                total = total;
+                                            }
 
-                                   
+
                                             ctx.replyWithPhoto({ url: coinPi.info.normal.image },
                                                 {
 
@@ -243,27 +243,25 @@ ${coinPi.aff.choice}
 
 📌رابط العرض المحدود: ${coinPi.info.limited.price}
 ${coinPi.aff.limited}
-
-
 ` ,
-                            parse_mode: "HTML",
-                                                                    ...Markup.inlineKeyboard([
-                                                                         [{ text: 'اضغط هنا لجمع العملات', url: "https://s.click.aliexpress.com/e/_DeiDie7" }],
-                                                                        Markup.button.callback("🛒 تخفيض العملات على منتجات السلة 🛒", "cart"),
+                                                    parse_mode: "HTML",
+                                                    ...Markup.inlineKeyboard([
+                                                        [{ text: 'اضغط هنا لجمع العملات', url: "https://s.click.aliexpress.com/e/_DeiDie7" }],
+                                                        Markup.button.callback("🛒 تخفيض العملات على منتجات السلة 🛒", "cart"),
+                                                        
 
-                                                                    ])
-                                                                }).then(() => {
-                                                                    ctx.deleteMessage(message.message_id)
-
-                                                                })
-
-
-                                                        });
-
-
+                                                    ])
+                                                }).then(() => {
+                                                    ctx.deleteMessage(message.message_id)
                                                 })
-                                            }
-                                        })
+
+
+                                        });
+
+
+                                })
+                            }
+                        })
 
                         .catch(error => {
                             console.error(error.message);
