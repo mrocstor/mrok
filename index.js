@@ -246,24 +246,24 @@ ${coinPi.aff.limited}
 
 
 ` ,
-                                                    parse_mode: "HTML",
-                                                      ...Markup.inlineKeyboard([
+                            parse_mode: "HTML",
+                                                                    ...Markup.inlineKeyboard([
                                                                          [{ text: 'اضغط هنا لجمع العملات', url: "https://s.click.aliexpress.com/e/_DeiDie7" }],
                                                                         Markup.button.callback("🛒 تخفيض العملات على منتجات السلة 🛒", "cart"),
 
-                                                                   
-                                            ])
+                                                                    ])
                                                                 }).then(() => {
-                                                    ctx.deleteMessage(message.message_id)
+                                                                    ctx.deleteMessage(message.message_id)
+
+                                                                })
+
+
+                                                        });
+
+
                                                 })
-
-
-                                        });
-
-
-                                })
-                            }
-                        })
+                                            }
+                                        })
 
                         .catch(error => {
                             console.error(error.message);
