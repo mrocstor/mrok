@@ -249,6 +249,7 @@ ${coinPi.aff.limited}
                                                     parse_mode: "HTML",
                                                     ...Markup.inlineKeyboard([
                                                         Markup.button.callback("🛒 تخفيض العملات على منتجات السلة 🛒", "cart"),
+                                                        Markup.button.url("اضغط هنا لجمع العملات", "https://s.click.aliexpress.com/e/_DeiDie7"),
 
                                                     ])
                                                 }).then(() => {
